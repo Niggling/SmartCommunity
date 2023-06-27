@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:house_manager_test1/database_helper.dart';
+import '/database_helper.dart';
 
 class HouseManagementPage extends StatefulWidget {
   @override
