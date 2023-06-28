@@ -30,6 +30,8 @@ class NewsPage extends StatelessWidget {
     // Add more news items as needed
   ];
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
