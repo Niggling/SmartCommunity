@@ -33,10 +33,12 @@ dependencies:
   video_player: ^2.2.5
   chewie: ^1.0.0
   universal_html: ^2.0.10
-  image_picker: ^0.8.4
+  image_picker: ^0.8.4+4
   video_player_web: ^2.0.0
   file_picker: ^4.1.6
   mysql1: ^0.20.0
+  http: ^0.13.3
+
 
 
   # The following adds the Cupertino Icons font to your application.
