@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
-import 'image_selection_page.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -12,18 +11,13 @@ class Authentication extends StatefulWidget {
 
 class _AuthenticationState extends State<Authentication> {
   List<String> uploadedImages = [];
-  String idCard = '310115200203049218';
+  String idCard = '66666666';
   String name = '徐尚';
   String status = '';
   String message = '';
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void onImageUploaded() async {
-    final Uint8List? pickedImage = await ImageSelectionPage.pickImage();
+    final Uint8List? pickedImage = await ImagePicker().getImage(source: ImageSource.gallery).then((value) => value!.readAsBytes());
     if (pickedImage != null) {
       setState(() {
         String imageString = base64Encode(pickedImage);
@@ -33,16 +27,14 @@ class _AuthenticationState extends State<Authentication> {
   }
 
   void verifyIdCard() async {
-
     setState(() {
       status = '';
       message = '';
     });
 
-    final String appCode = 'e74e239e33174302bad09d139fb63bb9';
+    final String appCode = 'e74e239e33174302bad09d139fb63bb9'; // 替换为您的AppCode
     final apiUrl = 'https://idcert.market.alicloudapi.com/idcard';
 
-    // 构建正确的URL参数
     final idCardQueryParam = 'idCard=' + Uri.encodeComponent(idCard);
     final nameQueryParam = 'name=' + Uri.encodeComponent(name);
     final url = '$apiUrl?$idCardQueryParam&$nameQueryParam';
@@ -68,7 +60,7 @@ class _AuthenticationState extends State<Authentication> {
     } else {
       setState(() {
         status = 'Error';
-        message = 'An error occurred during the authentication request.';
+        message = '身份验证请求出错';
       });
     }
 
@@ -99,7 +91,95 @@ class _AuthenticationState extends State<Authentication> {
     );
   }
 
+  void identifyIdCard() async {
+    if (uploadedImages.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('错误'),
+            content: Text('请先上传身份证图片'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('确认'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
 
+    final String appCode = 'e74e239e33174302bad09d139fb63bb9'; // 替换为您的AppCode
+    final apiUrl = 'https://api05.aliyun.venuscn.com/ocr/id-card';
+    final type = '1'; // 身份证正面
+
+    final String imageString = uploadedImages.last;
+
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {
+        'Authorization': 'APPCODE $appCode',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: {
+        'pic': imageString,
+        'type': type,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['ret'] == 200) {
+        setState(() {
+          final idCardData = data['data'];
+          status = 'Success';
+          message = '身份证识别成功';
+          idCard = idCardData['number'];
+          name = idCardData['name'];
+        });
+      } else {
+        setState(() {
+          status = 'Error';
+          message = '身份证识别失败';
+        });
+      }
+    } else {
+      setState(() {
+        status = 'Error';
+        message = 'OCR请求出错';
+      });
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (status == 'Success') ...[
+                Text('姓名: $name'),
+                Text('身份证号码: $idCard'),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('确认'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Widget buildUploadedImages() {
     if (uploadedImages.isEmpty) {
@@ -139,7 +219,7 @@ class _AuthenticationState extends State<Authentication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('身份证实名认证'),
+        title: Text('身份验证'),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
@@ -151,6 +231,11 @@ class _AuthenticationState extends State<Authentication> {
             ElevatedButton(
               onPressed: onImageUploaded,
               child: Text('请上传身份证图片'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: identifyIdCard,
+              child: Text('身份证识别'),
             ),
             SizedBox(height: 16),
             ElevatedButton(
@@ -178,6 +263,8 @@ class _AuthenticationState extends State<Authentication> {
 
 void main() {
   runApp(MaterialApp(
+    title: '身份验证',
+    theme: ThemeData(primarySwatch: Colors.blue),
     home: Authentication(),
   ));
 }
