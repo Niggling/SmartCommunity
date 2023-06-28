@@ -13,11 +13,15 @@ class _AuthenticationState extends State<Authentication> {
   List<String> uploadedImages = [];
   String idCard = '220204200112240919';
   String name = '宁立';
+  String address = ''; // 新增住址信息
   String status = '';
   String message = '';
 
   void onImageUploaded() async {
-    final Uint8List? pickedImage = await ImagePicker().getImage(source: ImageSource.gallery).then((value) => value!.readAsBytes());
+    final Uint8List? pickedImage =
+    await ImagePicker().getImage(source: ImageSource.gallery).then(
+          (value) => value!.readAsBytes(),
+    );
     if (pickedImage != null) {
       setState(() {
         String imageString = base64Encode(pickedImage);
@@ -55,6 +59,7 @@ class _AuthenticationState extends State<Authentication> {
         if (status == '01') {
           idCard = data['idCard'];
           name = data['name'];
+          address = data['address']; // 更新住址信息
         }
       });
     } else {
@@ -75,6 +80,7 @@ class _AuthenticationState extends State<Authentication> {
               if (status == '01') ...[
                 Text('姓名: $name'),
                 Text('身份证号码: $idCard'),
+                Text('住址: $address'), // 显示住址信息
               ],
             ],
           ),
@@ -140,6 +146,7 @@ class _AuthenticationState extends State<Authentication> {
           message = '身份证识别成功';
           idCard = idCardData['number'];
           name = idCardData['name'];
+          address = idCardData['address']; // 更新住址信息
         });
       } else {
         setState(() {
@@ -165,6 +172,7 @@ class _AuthenticationState extends State<Authentication> {
               if (status == 'Success') ...[
                 Text('姓名: $name'),
                 Text('身份证号码: $idCard'),
+                Text('住址: $address'), // 显示住址信息
               ],
             ],
           ),
@@ -249,10 +257,11 @@ class _AuthenticationState extends State<Authentication> {
             ),
             SizedBox(height: 16),
             Text('状态: $status'),
-            Text('信息: $message'),
+            Text('消息: $message'),
             if (status == '01') ...[
               Text('姓名: $name'),
               Text('身份证号码: $idCard'),
+              Text('住址: $address'), // 显示住址信息
             ],
           ],
         ),
@@ -264,7 +273,6 @@ class _AuthenticationState extends State<Authentication> {
 void main() {
   runApp(MaterialApp(
     title: '身份验证',
-    theme: ThemeData(primarySwatch: Colors.blue),
     home: Authentication(),
   ));
 }
