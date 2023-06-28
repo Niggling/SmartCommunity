@@ -32,7 +32,8 @@ class _AuthenticationState extends State<Authentication> {
     }
   }
 
-  void submitProblemReport() async {
+  void verifyIdCard() async {
+
     setState(() {
       status = '';
       message = '';
@@ -149,16 +150,16 @@ class _AuthenticationState extends State<Authentication> {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: onImageUploaded,
-              child: Text('上传图片'),
+              child: Text('请上传身份证图片'),
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: submitProblemReport,
-              child: Text('认证'),
+              onPressed: verifyIdCard,
+              child: Text('身份检验'),
             ),
             SizedBox(height: 16),
             Text(
-              '认证结果',
+              '检验结果',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
