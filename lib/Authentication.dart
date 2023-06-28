@@ -11,8 +11,8 @@ class Authentication extends StatefulWidget {
 
 class _AuthenticationState extends State<Authentication> {
   List<String> uploadedImages = [];
-  String idCard = '66666666';
-  String name = '徐尚';
+  String idCard = '220204200112240919';
+  String name = '宁立';
   String status = '';
   String message = '';
 
