@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '/PropertyClient/PeopleManagement.dart';
 import '/newslaunch.dart';
+import 'package:workspace/newsview.dart';
 import '/information_configure.dart';
 import '/tenementcar.dart';
 import '/EventHandlingPage.dart';
@@ -41,7 +42,7 @@ class _HomePageState extends State<PHomePage>{
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '2'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '公告察看'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: '个人中心'),
         ],
         currentIndex: _selectedIndex,
@@ -207,9 +208,7 @@ class HomePage extends StatelessWidget{
 class HomePage2 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('2'),
-    );
+    return NewsAppView();
   }
 }
 class HomePage3 extends StatelessWidget{
@@ -226,7 +225,7 @@ class HomePage3 extends StatelessWidget{
       title: "首页",
       initialRoute: "Home",
       routes: {
-        "newslanch": (context) => NewsPage(),
+        "newslanch": (context) => NewsLaunchPage(),
         "information_configure": (context) => CommunityInfoPage(),
         "PeopleManagement": (context) => PeopleManagementPage(),
         "tenementcar": (context) => MyHomePage(),

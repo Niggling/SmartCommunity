@@ -1,5 +1,6 @@
 import 'package:workspace/ResidentClient/familyManagement.dart';
 import 'package:flutter/material.dart';
+import 'package:workspace/newsview.dart';
 import 'package:workspace/perosnalcenter.dart';
 import 'package:workspace/Authentication.dart';
 import 'package:workspace/HouseManagement.dart';
@@ -38,7 +39,7 @@ class _HomePageState extends State<RHomePage>{
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home),label: '首页'),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite),label: '2'),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite),label: '公告查看'),
             BottomNavigationBarItem(icon: Icon(Icons.person),label: '个人中心'),
           ],
           currentIndex: _selectedIndex,
@@ -205,9 +206,7 @@ class HomePage extends StatelessWidget{
 class HomePage2 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('2'),
-    );
+    return NewsAppView();
   }
 }
 class HomePage3 extends StatelessWidget{
