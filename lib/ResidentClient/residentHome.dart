@@ -1,5 +1,12 @@
-import 'package:ddlwork/ResidentClient/familyManagement.dart';
+import 'package:workspace/ResidentClient/familyManagement.dart';
 import 'package:flutter/material.dart';
+import 'package:workspace/newsview.dart';
+import 'package:workspace/perosnalcenter.dart';
+import 'package:workspace/Authentication.dart';
+import 'package:workspace/HouseManagement.dart';
+import 'package:workspace/usercar.dart';
+import 'package:workspace/ProblemReportPage.dart';
+import 'package:workspace/vote_client.dart';
 
 class RHomePage extends StatefulWidget{
 
@@ -7,6 +14,7 @@ class RHomePage extends StatefulWidget{
   _HomePageState createState() =>_HomePageState();
 }
 class _HomePageState extends State<RHomePage>{
+
   int _selectedIndex=0;
 
   static List<Widget>_widetOptions=[
@@ -23,29 +31,28 @@ class _HomePageState extends State<RHomePage>{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "首页",
-      home: Scaffold(
+    return Scaffold(
           appBar: AppBar(
-            title: Text("智慧社区"),
+            title: Text("智慧社区居民端"),
           ),
         body:_widetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home),label: '首页'),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite),label: '2'),
-            BottomNavigationBarItem(icon: Icon(Icons.person),label: '3'),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite),label: '公告查看'),
+            BottomNavigationBarItem(icon: Icon(Icons.person),label: '个人中心'),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
         ),
 
-      ),
-    );
+      );
   }
 }
 class HomePage extends StatelessWidget{
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,10 +65,11 @@ class HomePage extends StatelessWidget{
                 SizedBox(height: 16,),
                 Container(
                   child: Image.asset(
-                    'images/firstpage.png',width:double.infinity,
-                    height:200,
-                    fit: BoxFit.cover,
-                  ),
+                  'assets/images/second_page.jpg',
+                  width:double.infinity,
+                  height:200,
+                  fit: BoxFit.cover,
+                ),
                 ),
                 SizedBox(height: 30),
                 SizedBox(
@@ -86,6 +94,7 @@ class HomePage extends StatelessWidget{
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){
+                                Navigator.pushNamed(context, "Authentication");
                               },
                               child: Text("实名认证"),
                               style:ElevatedButton.styleFrom(
@@ -102,6 +111,7 @@ class HomePage extends StatelessWidget{
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
+                                  Navigator.pushNamed(context, "HouseManagement");
                                 },
                                 child: Text("房屋管理"),
                                 style:ElevatedButton.styleFrom(
@@ -118,9 +128,7 @@ class HomePage extends StatelessWidget{
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                    return FamilyPage();
-                                  }));
+                                  Navigator.pushNamed(context, "familyManagement");
                                 },
                                 child: Text("家人管理"),
                                 style:ElevatedButton.styleFrom(
@@ -137,6 +145,7 @@ class HomePage extends StatelessWidget{
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
+                                  Navigator.pushNamed(context, "usercar");
                                 },
                                 child: Text("车辆管理"),
                                 style:ElevatedButton.styleFrom(
@@ -153,6 +162,7 @@ class HomePage extends StatelessWidget{
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
+                                  Navigator.pushNamed(context, "ProblemReportPage");
                                 },
                                 child: Text("问题上报"),
                                 style:ElevatedButton.styleFrom(
@@ -169,6 +179,7 @@ class HomePage extends StatelessWidget{
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
+                                  Navigator.pushNamed(context, "vote_client");
                                 },
                                 child: Text("支出投票"),
                                 style:ElevatedButton.styleFrom(
@@ -195,17 +206,29 @@ class HomePage extends StatelessWidget{
 class HomePage2 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('2'),
-    );
+    return NewsAppView();
   }
 }
 class HomePage3 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('3'),
-    );
+    return PersonalCenterPage();
   }
 
+}
+void resident_main() {
+
+  runApp(MaterialApp(
+    title: "首页",
+    initialRoute: "Home",
+    routes: {
+      "Authentication": (context) => Authentication(),
+      "HouseManagement": (context) => HouseManagementPage(),
+      "familyManagement": (context) => FamilyPage(),
+      "usercar": (context) => VehicleManagementPage(),
+      "ProblemReportPage": (context) => ProblemReportPage(),
+      "vote_client": (context) => VotingPage(),
+      "Home": (context) => RHomePage(),
+    },
+  ));
 }

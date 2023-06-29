@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(NewsApp());
+  runApp(NewsAppView());
 }
 
-class NewsApp extends StatelessWidget {
+class NewsAppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,6 +29,8 @@ class NewsPage extends StatelessWidget {
     ),
     // Add more news items as needed
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

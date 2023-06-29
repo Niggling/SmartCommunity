@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 void main() {
-  runApp(NewsApp());
+  runApp(NewsAppLaunch());
 }
 
-class NewsApp extends StatelessWidget {
+class NewsAppLaunch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,17 +13,17 @@ class NewsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NewsPage(),
+      home: NewsLaunchPage(),
     );
   }
 }
 
-class NewsPage extends StatefulWidget {
+class NewsLaunchPage extends StatefulWidget {
   @override
   _NewsPageState createState() => _NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
+class _NewsPageState extends State<NewsLaunchPage> {
   File? _selectedImage;
   late TextEditingController _titleController;
   late TextEditingController _contentController;
@@ -89,7 +89,9 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         title: Text('公告发布'),
       ),
-      body: Padding(
+
+      body: SingleChildScrollView(
+      child:Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -134,7 +136,7 @@ class _NewsPageState extends State<NewsPage> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
