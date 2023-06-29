@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
               loadDataDio();
               if (datakey == 'xushang') {
                   manager_main();
-              } else if (datakey == 'yvyvyang') {
+              } else if (datakey == 'yuyuyang') {
                   resident_main();
               }
             }, child: Text("登陆")),

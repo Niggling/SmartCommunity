@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/Authentication.dart';
+import 'login.dart';
 
 List<String> personal = ["打火机","657803436@qq.com"];
 class PersonalCenterPage extends StatelessWidget {
@@ -91,6 +92,29 @@ class PersonalCenterPage extends StatelessWidget {
                   ),
                 ],
               ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('退出登录'),
+            onTap: () {
+              // 处理个人信息点击事件
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('退出登录'),
+                  content: Text("你确定要退出登录吗？"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        LoginPage();
+                        Navigator.pop(context);
+                      },
+                      child: Text('关闭'),
+                    ),
+                  ],
+                ),
               );
             },
           ),

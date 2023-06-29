@@ -89,7 +89,9 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         title: Text('公告发布'),
       ),
-      body: Padding(
+
+      body: SingleChildScrollView(
+      child:Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -134,7 +136,7 @@ class _NewsPageState extends State<NewsPage> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
