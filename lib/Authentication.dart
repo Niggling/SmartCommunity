@@ -11,20 +11,25 @@ class Authentication extends StatefulWidget {
 
 class _AuthenticationState extends State<Authentication> {
   List<String> uploadedImages = [];
-  String idCard = '220204200112240919';
-  String name = '宁立';
-  String address = ''; // 新增住址信息
+  String idCard = '';
+  String name = '';
+  String address = '';
   String status = '';
   String message = '';
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController idCardController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
   void onImageUploaded() async {
-    final Uint8List? pickedImage =
-    await ImagePicker().getImage(source: ImageSource.gallery).then(
-          (value) => value!.readAsBytes(),
+    final XFile? pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
     );
+
     if (pickedImage != null) {
+      final Uint8List pickedImageBytes = await pickedImage.readAsBytes();
       setState(() {
-        String imageString = base64Encode(pickedImage);
+        String imageString = base64Encode(pickedImageBytes);
         uploadedImages.add(imageString);
       });
     }
@@ -59,7 +64,7 @@ class _AuthenticationState extends State<Authentication> {
         if (status == '01') {
           idCard = data['idCard'];
           name = data['name'];
-          address = data['address']; // 更新住址信息
+          // address = data['address'];
         }
       });
     } else {
@@ -68,33 +73,6 @@ class _AuthenticationState extends State<Authentication> {
         message = '身份验证请求出错';
       });
     }
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(message),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (status == '01') ...[
-                Text('姓名: $name'),
-                Text('身份证号码: $idCard'),
-                Text('住址: $address'), // 显示住址信息
-              ],
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('确认'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   void identifyIdCard() async {
@@ -142,11 +120,14 @@ class _AuthenticationState extends State<Authentication> {
       if (data['ret'] == 200) {
         setState(() {
           final idCardData = data['data'];
-          status = 'Success';
-          message = '身份证识别成功';
+          status = '';
+          message = '';
           idCard = idCardData['number'];
           name = idCardData['name'];
-          address = idCardData['address']; // 更新住址信息
+          address = idCardData['address'];
+          nameController.text = name; // 更新姓名文本框的内容
+          idCardController.text = idCard; // 更新身份证号码文本框的内容
+          addressController.text = address; // 更新住址文本框的内容
         });
       } else {
         setState(() {
@@ -160,33 +141,6 @@ class _AuthenticationState extends State<Authentication> {
         message = 'OCR请求出错';
       });
     }
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(message),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (status == 'Success') ...[
-                Text('姓名: $name'),
-                Text('身份证号码: $idCard'),
-                Text('住址: $address'), // 显示住址信息
-              ],
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('确认'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Widget buildUploadedImages() {
@@ -209,6 +163,7 @@ class _AuthenticationState extends State<Authentication> {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
                       image: MemoryImage(base64Decode(imageData)),
                       fit: BoxFit.cover,
@@ -220,6 +175,99 @@ class _AuthenticationState extends State<Authentication> {
           ),
         ],
       );
+    }
+  }
+
+  Widget buildIdCardInfo() {
+    if (status == '01') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '姓名:',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 4),
+          TextField(
+            controller: nameController,
+            decoration: InputDecoration(
+              hintText: '请输入姓名',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) {
+              setState(() {
+                name = value;
+              });
+            },
+          ),
+          SizedBox(height: 8),
+          Text(
+            '身份证号码:',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 4),
+          TextField(
+            controller: idCardController,
+            decoration: InputDecoration(
+              hintText: '请输入身份证号码',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) {
+              setState(() {
+                idCard = value;
+              });
+            },
+          ),
+          SizedBox(height: 8),
+          Text(
+            '住址:',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 4),
+          TextField(
+            controller: addressController,
+            decoration: InputDecoration(
+              hintText: '请输入住址',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) {
+              setState(() {
+                address = value;
+              });
+            },
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('信息已保存'),
+                    content: Text('身份信息已更新'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            nameController.text = name;
+                            idCardController.text = idCard;
+                            addressController.text = address;
+                          });
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('确认'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Text('保存信息'),
+          ),
+        ],
+      );
+    } else {
+      return Container();
     }
   }
 
@@ -238,31 +286,37 @@ class _AuthenticationState extends State<Authentication> {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: onImageUploaded,
-              child: Text('请上传身份证图片'),
+              child: Text('上传身份证图片'),
             ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: identifyIdCard,
-              child: Text('身份证识别'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: verifyIdCard,
-              child: Text('身份检验'),
+              child: Text('识别身份证'),
             ),
             SizedBox(height: 16),
             Text(
-              '检验结果',
+              '身份证信息:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 8),
+            Text('姓名: $name'),
+            Text('身份证号码: $idCard'),
+            Text('住址: $address'),
             SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: verifyIdCard,
+              child: Text('验证身份证'),
+            ),
+            SizedBox(height: 16),
+            Text(
+              '验证结果:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
             Text('状态: $status'),
             Text('消息: $message'),
-            if (status == '01') ...[
-              Text('姓名: $name'),
-              Text('身份证号码: $idCard'),
-              Text('住址: $address'), // 显示住址信息
-            ],
+            SizedBox(height: 16),
+            buildIdCardInfo(),
           ],
         ),
       ),
@@ -272,7 +326,6 @@ class _AuthenticationState extends State<Authentication> {
 
 void main() {
   runApp(MaterialApp(
-    title: '身份验证',
     home: Authentication(),
   ));
 }
