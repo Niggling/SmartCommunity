@@ -38,6 +38,7 @@ dependencies:
   file_picker: ^4.1.6
   mysql1: ^0.20.0
   http: ^0.13.3
+  dio: any
 
 
 

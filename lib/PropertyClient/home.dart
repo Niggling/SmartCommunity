@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:ddlwork/PropertyClient/PeopleManagement.dart';
+import '/PropertyClient/PeopleManagement.dart';
 
 class PHomePage extends StatefulWidget{
 

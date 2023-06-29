@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xs/certifiedvechiclelog.dart';
-import 'package:xs/vehicleaudit.dart';
+import '/certifiedvechiclelog.dart';
+import '/vehicleaudit.dart';
 
 class MyHomePage extends StatelessWidget {
   @override

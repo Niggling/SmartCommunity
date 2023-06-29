@@ -1,6 +1,6 @@
-import 'package:ddlwork/PropertyClient/home.dart';
-import 'package:ddlwork/ResidentClient/residentHome.dart';
-import 'package:ddlwork/peizhi/global.dart';
+import '/PropertyClient/home.dart';
+import '/ResidentClient/residentHome.dart';
+import '/peizhi/global.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
