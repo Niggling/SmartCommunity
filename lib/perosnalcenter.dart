@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/Authentication.dart';
 
 List<String> personal = ["打火机","657803436@qq.com"];
 class PersonalCenterPage extends StatelessWidget {
@@ -13,9 +14,6 @@ class PersonalCenterPage extends StatelessWidget {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('个人中心'),
-      ),
       body: ListView(
         children: [
           UserHeader(),
@@ -96,7 +94,6 @@ class PersonalCenterPage extends StatelessWidget {
               );
             },
           ),
-          // 添加其他列表项...
         ],
       ),
     );

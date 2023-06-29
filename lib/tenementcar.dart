@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import '/certifiedvechiclelog.dart';
 import '/vehicleaudit.dart';
 
+
+
 class MyHomePage extends StatelessWidget {
+  Map<String, WidgetBuilder> routes = {
+    "certified_vehicle_log":(context) => CertifiedVehicleLog(),
+    "tenement_car":(context) => MyHomePage(),
+    "vehicle_audit":(context) => VehicleApprovalPage(),
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +40,6 @@ class MyHomePage extends StatelessWidget {
 }
 
 void main() {
-
-  Map<String, WidgetBuilder> routes;
 
   runApp(MaterialApp(
     title: 'Tenement Car',

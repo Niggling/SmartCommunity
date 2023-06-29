@@ -47,13 +47,9 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(onPressed: () {
               loadDataDio();
               if (datakey == 'xushang') {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return RHomePage();
-                }));
+                  manager_main();
               } else if (datakey == 'yvyvyang') {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return PHomePage();
-                }));
+                  resident_main();
               }
             }, child: Text("登陆")),
             ElevatedButton(
