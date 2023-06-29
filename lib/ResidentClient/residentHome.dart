@@ -1,4 +1,4 @@
-import 'package:ddlwork/ResidentClient/familyManagement.dart';
+import '/ResidentClient/familyManagement.dart';
 import 'package:flutter/material.dart';
 
 class RHomePage extends StatefulWidget{
