@@ -108,10 +108,12 @@ class PersonalCenterPage extends StatelessWidget {
                   actions: [
                     TextButton(
                       onPressed: () {
-                        LoginPage();
                         Navigator.pop(context);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (BuildContext context) => LoginApp()),);
                       },
-                      child: Text('关闭'),
+                      child: Text('确定'),
                     ),
                   ],
                 ),
