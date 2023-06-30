@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class Vehicle {
   String licensePlate;
+  List<House> selectedHouses; // 记录每辆车的绑定房屋信息
+  List<ParkingSpace> selectedParkingSpaces; // 记录每辆车的绑定车位信息
 
-  Vehicle(this.licensePlate);
+  Vehicle(this.licensePlate, this.selectedHouses, this.selectedParkingSpaces);
 }
 
 class ParkingSpace {
-  int spaceNumber;
+  String spaceNumber;
 
   ParkingSpace(this.spaceNumber);
 }
@@ -28,58 +30,54 @@ class _VehicleManagementPageState extends State<VehicleManagementPage> {
   List<ParkingSpace> parkingSpaces = [];
   List<House> houses = [];
 
-  List<House> selectedHouses = [];
-  List<ParkingSpace> selectedParkingSpaces = [];
+  TextEditingController houseController = TextEditingController();
+  TextEditingController parkingSpaceController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     // 初始化车辆、车位、房屋数据
     vehicles = [
-      Vehicle("晋ANQ631")
+      Vehicle("晋ANQ631", [], []),
     ];
     parkingSpaces = [
-      ParkingSpace(1),
-      ParkingSpace(2),
+      ParkingSpace("A-1"),
+      ParkingSpace("A-2"),
     ];
-    houses = [
-      House('房屋22栋101，车位A-1'),
-      House('房屋12栋201，车位B-2'),
-      House('房屋2栋301，车位C-3'),
-    ];
+    houses = [];
   }
 
   void addVehicle() {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          TextEditingController _licenseplate = TextEditingController();
-          return AlertDialog(
-            title: Text('添加车辆'),
-            content: SingleChildScrollView(
-              child: TextField(
-                controller: _licenseplate,
-                autofocus: true,
-                decoration: const InputDecoration(
-                    labelText: "添加车辆",
-                    hintText: "车牌号",
-                    prefixIcon: Icon(Icons.air)
-                ),
-
+      context: context,
+      builder: (BuildContext context) {
+        TextEditingController licensePlateController = TextEditingController();
+        return AlertDialog(
+          title: Text('添加车辆'),
+          content: SingleChildScrollView(
+            child: TextField(
+              controller: licensePlateController,
+              autofocus: true,
+              decoration: const InputDecoration(
+                labelText: "添加车辆",
+                hintText: "车牌号",
+                prefixIcon: Icon(Icons.air),
               ),
             ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    vehicles.add(Vehicle(_licenseplate.text));
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Text('确认'),
-              ),
-            ],
-          );
-        }
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  vehicles.add(Vehicle(licensePlateController.text, [], [])); // 每辆车单独拥有绑定房屋和车位信息的空列表
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text('确认'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -88,35 +86,117 @@ class _VehicleManagementPageState extends State<VehicleManagementPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('选择绑定房屋与车位'),
+          title: Text('选择绑定房屋'),
           content: SingleChildScrollView(
             child: Column(
-              children: houses
-                  .map(
-                    (house) =>
-                    CheckboxListTile(
+              children: [
+                TextField(
+                  controller: houseController,
+                  decoration: InputDecoration(
+                    labelText: '输入房屋',
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if(houseController.text.isNotEmpty)
+                        {
+                      House house = House(houseController.text);
+                      vehicle.selectedHouses.add(house); // 将输入的房屋添加到当前车辆的绑定房屋列表中
+                      houseController.clear(); // 清空输入框
+                        }
+                    });
+                  },
+                  child: Text('添加房屋'),
+                ),
+                SizedBox(height: 10),
+                Column(
+                  children: vehicle.selectedHouses
+                      .map(
+                        (house) => ListTile(
                       title: Text(house.houseNumber),
-                      value: selectedHouses.contains(house),
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if (value == true) {
-                            selectedHouses.add(house);
-                          } else {
-                            selectedHouses.remove(house);
-                          }
-                        });
-                      },
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            vehicle.selectedHouses.remove(house); // 从当前车辆的绑定房屋列表中移除选中的房屋
+                          });
+                        },
+                      ),
                     ),
-              )
-                  .toList(),
+                  )
+                      .toList(),
+                ),
+              ],
             ),
           ),
           actions: [
             ElevatedButton(
               onPressed: () {
-                // 将选中的房屋与车辆进行绑定
-                // 可根据业务需求进行后续处理，比如保存绑定关系到数据库等
                 Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('选择绑定车位'),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: parkingSpaceController,
+                              decoration: InputDecoration(
+                                labelText: '输入车位',
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  ParkingSpace space =
+                                  ParkingSpace(parkingSpaceController.text);
+                                  vehicle.selectedParkingSpaces.add(space); // 将输入的车位添加到当前车辆的绑定车位列表中
+                                  parkingSpaceController.clear(); // 清空输入框
+                                });
+                              },
+                              child: Text('添加车位'),
+                            ),
+                            SizedBox(height: 10),
+                            Column(
+                              children: vehicle.selectedParkingSpaces
+                                  .map(
+                                    (space) => ListTile(
+                                  title: Text('车位${space.spaceNumber}'),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      setState(() {
+                                        vehicle.selectedParkingSpaces
+                                            .remove(space); // 从当前车辆的绑定车位列表中移除选中的车位
+                                      });
+                                    },
+                                  ),
+                                ),
+                              )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            final snackBar = SnackBar(
+                              content: Text('车辆绑定信息已上传至物业端审核。'),
+                              duration: Duration(seconds: 3),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('上传审核'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: Text('确认'),
             ),
@@ -132,36 +212,68 @@ class _VehicleManagementPageState extends State<VehicleManagementPage> {
       appBar: AppBar(
         title: Text('车辆管理'),
       ),
-      body: ListView.builder(
-          itemCount: vehicles.length,
-          itemBuilder: (BuildContext context, int index) {
-
-            Vehicle vehicle = vehicles[index];
-            return ListTile(
-              title: Text(vehicle.licensePlate),
-              subtitle: Text('绑定房屋：${selectedHouses.length}绑定车位：${selectedHouses.length}'),
-              trailing: IconButton(
-                icon: Icon(Icons.link),
-                onPressed: () {
-                  bindVehicleToHouses(vehicle);
-                },
-              ),
-            );
-          }
-
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: vehicles.length,
+              itemBuilder: (BuildContext context, int index) {
+                Vehicle vehicle = vehicles[index];
+                return ListTile(
+                  title: Text(vehicle.licensePlate),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('绑定房屋：'),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: vehicle.selectedHouses.map((house) {
+                          return Text(house.houseNumber);
+                        }).toList(),
+                      ),
+                      SizedBox(height: 4),
+                      Text('绑定车位：'),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: vehicle.selectedParkingSpaces.map((space) {
+                          return Text('车位${space.spaceNumber}');
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.link),
+                    onPressed: () {
+                      bindVehicleToHouses(vehicle);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(58.0),
+            child: Text(
+              '点击《添加》按钮或是《垃圾桶》按钮后，前台数据已发生变更，请不要继续反复点击这些按钮，请点击确认以进入下一步。',
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton( //悬浮按钮
-          child: const Icon(Icons.add),
-          onPressed:(){addVehicle();}
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          addVehicle();
+        },
       ),
-
     );
   }
 }
 
-
-void main() {
-  runApp(MaterialApp(
-    home: VehicleManagementPage(),
-  ));
+  void main() {
+  runApp(
+    MaterialApp(
+      home: VehicleManagementPage(),
+    ),
+  );
 }
