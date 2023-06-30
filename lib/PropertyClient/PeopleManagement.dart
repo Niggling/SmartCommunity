@@ -9,6 +9,8 @@ class _PeopleManagementState extends State<PeopleManagementPage>{
     Resident(name: '徐小', age: 20,address: "5-101"),
     Resident(name: '徐回', age: 25,address: "2-202"),
     Resident(name: '小回', age: 30,address: "2-203"),
+    Resident(name: '打火机', age: 30,address: "22-201"),
+    Resident(name: '余', age: 20,address: "1-101"),
   ];
   List<Resident> searchResults = [];//存储搜索到的信息
   List<Resident> pendingResidents = [
@@ -32,8 +34,6 @@ class _PeopleManagementState extends State<PeopleManagementPage>{
       resident.address = newAddress;
     });
   }
-  void _exportResident(){}
-  void _importResident(){}
   void _showApprovalDialog() {
     showDialog(
         context: context,

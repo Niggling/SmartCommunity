@@ -10,7 +10,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('物业端'),
+        title: Text('车辆审核'),
       ),
       body: Center(
         child: Column(
@@ -26,6 +26,7 @@ class MyHomePage extends StatelessWidget {
               },
               child: Text('已认证车辆查询'),
             ),
+            SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

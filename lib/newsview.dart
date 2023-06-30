@@ -1,23 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(NewsAppView());
-}
+
+
 
 class NewsAppView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'News App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: NewsPage(),
-    );
-  }
-}
-
-class NewsPage extends StatelessWidget {
   final List<News> newsList = [
     News(
       title: '公告标题1',
@@ -35,9 +21,6 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('浏览公告'),
-      ),
       body: ListView.builder(
         itemCount: newsList.length,
         itemBuilder: (context, index) {

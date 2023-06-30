@@ -7,9 +7,9 @@ class FamilyPage extends StatefulWidget{
 }
 class _FamilyState extends State<FamilyPage>{
   List<Person> family = [
-    Person(name: '徐小', age: 20,IDcard:'1234566',),
-    Person(name: '徐回', age: 25,IDcard:'1234567',),
-    Person(name: '小回', age: 30,IDcard:'1234568',),
+    //Person(name: '余', age: 20,IDcard:'1234566',),
+    //Person(name: '庆', age: 25,IDcard:'1234567',),
+    //Person(name: '清', age: 30,IDcard:'1234568',),
     // 可根据实际情况添加更多家人信息
   ];
   @override
