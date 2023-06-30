@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/database_helper.dart';
 
 class HouseManagementPage extends StatefulWidget {
   @override
@@ -26,56 +25,17 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
     );
   }
 
-
-  void _bindHouse() async {
+  void _bindHouse() {
     if (selectedCommunity != null &&
         selectedBuilding != null &&
         selectedUnit != null &&
         selectedHouse != null) {
-      // 执行房屋绑定逻辑
       print('房屋绑定成功');
       _showSnackBar('申请已发送');
-
-      // 初始化数据库连接
-      await DatabaseHelper.instance.openConnection();
-
-      // 发送申请信息给物业端
-      int applicationId = await DatabaseHelper.instance.insertApplication(
-        '业主姓名',
-        selectedCommunity!,
-        selectedBuilding!,
-        selectedUnit!,
-        selectedHouse!,
-      );
-
-      print('申请信息插入成功，申请ID为: $applicationId');
-
-      // 关闭数据库连接
-      await DatabaseHelper.instance.closeConnection();
     } else {
       print('房屋绑定失败');
     }
   }
-
-
-
-
-  Future<void> sendApplication(
-      String community, String building, String unit, String house) async {
-    // 构造申请信息
-    Map<String, dynamic> applicationData = {
-      'owner': '业主姓名',
-      'community': community,
-      'building': building,
-      'unit': unit,
-      'house': house,
-    };
-
-    // 将申请信息插入数据库
-    int applicationId = await DatabaseHelper.instance.insertApplication('业主姓名', selectedCommunity!, selectedBuilding!, selectedUnit!, selectedHouse!);
-    print('申请信息插入数据库成功，ID: $applicationId');
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +60,10 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
                 });
               },
               items: <String>[
-                '小区1',
-                '小区2',
-                '小区3',
-                '小区4',
+                '翡翠湖小区',
+                '屯溪路小区',
+                '合工大小区',
+                '中科大小区',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -124,10 +84,10 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
                 });
               },
               items: <String>[
-                '楼栋1',
-                '楼栋2',
-                '楼栋3',
-                '楼栋4',
+                '1号楼',
+                '2号楼',
+                '3号楼',
+                '4号楼',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -148,10 +108,10 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
                 });
               },
               items: <String>[
-                '单元1',
-                '单元2',
-                '单元3',
-                '单元4',
+                '1单元',
+                '2单元',
+                '3单元',
+                '4单元',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -172,10 +132,14 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
                 });
               },
               items: <String>[
-                '户号1',
-                '户号2',
-                '户号3',
-                '户号4',
+                '101',
+                '102',
+                '201',
+                '202',
+                '301',
+                '302',
+                '401',
+                '402',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
