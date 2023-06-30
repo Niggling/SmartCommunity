@@ -9,42 +9,42 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
   List<Map<String, dynamic>> eventList = [
     {
       'id': 1,
-      'description': '业主1的房屋出现水管漏水问题',
+      'description': '房屋出现水管漏水问题',
       'status': '未处理',
       'owner': '业主1',
       'house': '房屋1',
     },
     {
       'id': 2,
-      'description': '业主2的房屋电路故障',
+      'description': '房屋电路故障',
       'status': '未处理',
       'owner': '业主2',
       'house': '房屋2',
     },
     {
       'id': 3,
-      'description': '业主3的房屋门窗损坏',
+      'description': '房屋门窗损坏',
       'status': '未处理',
       'owner': '业主3',
       'house': '房屋3',
     },
     {
       'id': 4,
-      'description': '业主4的房屋空调故障',
+      'description': '房屋空调故障',
       'status': '未处理',
       'owner': '业主4',
       'house': '房屋4',
     },
     {
       'id': 5,
-      'description': '业主5的房屋卫生问题',
+      'description': '房屋卫生问题',
       'status': '未处理',
       'owner': '业主5',
       'house': '房屋5',
     },
     {
       'id': 6,
-      'description': '业主6的房屋燃气泄漏',
+      'description': '房屋燃气泄漏',
       'status': '未处理',
       'owner': '业主6',
       'house': '房屋6',
@@ -63,7 +63,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
   void _transferToHigherLevel(int eventId) {
     setState(() {
       final event = eventList.firstWhere((event) => event['id'] == eventId);
-      event['status'] = '流转到上层级';
+      event['status'] = '上报到上层级';
     });
   }
 
@@ -107,7 +107,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
           SizedBox(width: 8),
           ElevatedButton(
             onPressed: () => _transferToHigherLevel(eventId),
-            child: Text('流转'),
+            child: Text('上报'),
           ),
         ],
       ),
