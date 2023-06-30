@@ -95,13 +95,14 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
     return filteredList;
   }
 
-
   Widget _buildEventItem(Map<String, dynamic> event) {
     final eventId = event['id'];
     final description = event['description'];
     final status = event['status'];
     final owner = event['owner'];
     final house = event['house'];
+
+    final isPending = status == '未处理';
 
     return ListTile(
       title: Text('问题: $description'),
@@ -110,7 +111,19 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
         children: [
           Text('业主: $owner'),
           Text('房屋: $house'),
-          Text('处理状态: $status'),
+          Text(
+            '处理状态: ',
+            style: TextStyle(
+              color: isPending ? Colors.red : null,
+            ),
+          ),
+          Text(
+            status,
+            style: TextStyle(
+              color: isPending ? Colors.red : null,
+              fontWeight: isPending ? FontWeight.bold : null,
+            ),
+          ),
         ],
       ),
       trailing: Row(
@@ -129,6 +142,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
