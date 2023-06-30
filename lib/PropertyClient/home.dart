@@ -92,7 +92,11 @@ class HomePage extends StatelessWidget{
                     children: [
                       Column(
                         children: [
-                          FlutterLogo(size: 50.0),
+                          Icon(
+                            Icons.drafts,
+                            color: Colors.blue,
+                            size: 50.0,
+                          ),
                           SizedBox(height: 8.0,),
                           ElevatedButton(
                             onPressed: (){
@@ -109,7 +113,11 @@ class HomePage extends StatelessWidget{
                       ),
                       Column(
                           children:[
-                            FlutterLogo(size: 50.0),
+                            Icon(
+                              Icons.exposure,
+                              color: Colors.blue,
+                              size: 50.0,
+                            ),
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){
@@ -126,7 +134,11 @@ class HomePage extends StatelessWidget{
                       ),
                       Column(
                           children:[
-                            FlutterLogo(size: 50.0),
+                            Icon(
+                              Icons.account_box,
+                              color: Colors.blue,
+                              size: 50.0,
+                            ),
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){
@@ -143,7 +155,11 @@ class HomePage extends StatelessWidget{
                       ),
                       Column(
                           children:[
-                            FlutterLogo(size: 50.0),
+                            Icon(
+                              Icons.airport_shuttle,
+                              color: Colors.blue,
+                              size: 50.0,
+                            ),
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){
@@ -160,7 +176,11 @@ class HomePage extends StatelessWidget{
                       ),
                       Column(
                           children:[
-                            FlutterLogo(size: 50.0),
+                            Icon(
+                              Icons.assignment_late,
+                              color: Colors.blue,
+                              size: 50.0,
+                            ),
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){
@@ -177,7 +197,11 @@ class HomePage extends StatelessWidget{
                       ),
                       Column(
                           children:[
-                            FlutterLogo(size: 50.0),
+                            Icon(
+                              Icons.folder_special,
+                              color: Colors.blue,
+                              size: 50.0,
+                            ),
                             SizedBox(height: 8.0,),
                             ElevatedButton(
                               onPressed: (){

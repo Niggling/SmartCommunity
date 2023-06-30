@@ -26,6 +26,7 @@ class MyHomePage extends StatelessWidget {
               },
               child: Text('已认证车辆查询'),
             ),
+            SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
