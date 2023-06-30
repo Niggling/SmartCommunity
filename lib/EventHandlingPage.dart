@@ -6,147 +6,180 @@ class EventHandlingPage extends StatefulWidget {
 }
 
 class _EventHandlingPageState extends State<EventHandlingPage> {
-  List<ReportedProblem> reportedProblems = [
-    ReportedProblem(
-      id: 1,
-      owner: '张三',
-      property: '101号单元',
-      description: '浴室的水龙头漏水',
-      status: '待处理',
-    ),
-    ReportedProblem(
-      id: 2,
-      owner: '李四',
-      property: '202号单元',
-      description: '门把手损坏',
-      status: '处理中',
-    ),
-    // 添加更多已报告的问题
-  ];
+  List<Map<String, dynamic>> eventList = [
+    {
+      'id': 1,
+      'description': '房屋出现水管漏水问题',
+      'status': '未处理',
+      'owner': '业主1',
+      'house': '房屋1',
+    },
+    {
+      'id': 2,
+      'description': '房屋电路故障',
+      'status': '未处理',
+      'owner': '业主2',
+      'house': '房屋2',
+    },
+    {
+      'id': 3,
+      'description': '房屋门窗损坏',
+      'status': '未处理',
+      'owner': '业主3',
+      'house': '房屋3',
+    },
+    {
+      'id': 4,
+      'description': '房屋空调故障',
+      'status': '未处理',
+      'owner': '业主4',
+      'house': '房屋4',
+    },
+    {
+      'id': 5,
+      'description': '房屋卫生问题',
+      'status': '未处理',
+      'owner': '业主5',
+      'house': '房屋5',
+    },
+    {
+      'id': 6,
+      'description': '房屋燃气泄漏',
+      'status': '未处理',
+      'owner': '业主6',
+      'house': '房屋6',
+    },
+  ]; // 事件列表
+
+  String searchText = ''; // 搜索文本
+
+  void _updateEventStatus(int eventId, String newStatus) {
+    setState(() {
+      final event = eventList.firstWhere((event) => event['id'] == eventId);
+      event['status'] = newStatus;
+    });
+  }
+
+  void _transferToHigherLevel(int eventId) {
+    setState(() {
+      final event = eventList.firstWhere((event) => event['id'] == eventId);
+      event['status'] = '上报到上层级';
+    });
+  }
+
+  List<Map<String, dynamic>> _filterEvents() {
+    List<Map<String, dynamic>> filteredList = eventList;
+
+    if (searchText.isNotEmpty) {
+      filteredList = filteredList.where((event) {
+        final description = event['description'].toString().toLowerCase();
+        return description.contains(searchText.toLowerCase());
+      }).toList();
+    }
+
+    filteredList.sort((a, b) {
+      final aStatus = a['status'];
+      final bStatus = b['status'];
+      final isADone = aStatus == '已处理' || aStatus == '上报到上层级';
+      final isBDone = bStatus == '已处理' || bStatus == '上报到上层级';
+
+      if (isADone && !isBDone) {
+        return 1;
+      } else if (!isADone && isBDone) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    return filteredList;
+  }
+
+  Widget _buildEventItem(Map<String, dynamic> event) {
+    final eventId = event['id'];
+    final description = event['description'];
+    final status = event['status'];
+    final owner = event['owner'];
+    final house = event['house'];
+
+    final isPending = status == '未处理';
+
+    return ListTile(
+      title: Text('问题: $description'),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('业主: $owner'),
+          Text('房屋: $house'),
+          Text(
+            '处理状态: ',
+            style: TextStyle(
+              color: isPending ? Colors.red : null,
+            ),
+          ),
+          Text(
+            status,
+            style: TextStyle(
+              color: isPending ? Colors.red : null,
+              fontWeight: isPending ? FontWeight.bold : null,
+            ),
+          ),
+        ],
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () => _updateEventStatus(eventId, '已处理'),
+            child: Text('已处理'),
+          ),
+          SizedBox(width: 8),
+          ElevatedButton(
+            onPressed: () => _transferToHigherLevel(eventId),
+            child: Text('上报'),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    final filteredEvents = _filterEvents();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('事件处理'),
       ),
-      body: ListView.builder(
-        itemCount: reportedProblems.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('问题描述：${reportedProblems[index].description}'),
-            subtitle: Text('业主：${reportedProblems[index].owner}\n'
-                '房产：${reportedProblems[index].property}\n'
-                '状态：${reportedProblems[index].status}'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProblemDetailsPage(
-                    problem: reportedProblems[index],
-                    onUpdateStatus: (newStatus) {
-                      setState(() {
-                        reportedProblems[index].status = newStatus;
-                      });
-                    },
-                  ),
-                ),
-              );
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  searchText = value;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: '搜索',
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredEvents.length,
+              itemBuilder: (context, index) {
+                return _buildEventItem(filteredEvents[index]);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
-}
-
-class ProblemDetailsPage extends StatelessWidget {
-  final ReportedProblem problem;
-  final Function(String) onUpdateStatus;
-
-  ProblemDetailsPage({required this.problem, required this.onUpdateStatus});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('问题详情'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '问题描述：',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 8),
-            Text(
-              problem.description,
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 16),
-            Text(
-              '业主：${problem.owner}',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 16),
-            Text(
-              '房产：${problem.property}',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    onUpdateStatus('已处理');
-                  },
-                  child: Text('已处理'),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    onUpdateStatus('上报');
-                  },
-                  child: Text('上报'),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    onUpdateStatus('忽略');
-                  },
-                  child: Text('忽略'),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Text(
-              '处理状态：${problem.status}',
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ReportedProblem {
-  final int id;
-  final String owner;
-  final String property;
-  final String description;
-  String status;
-
-  ReportedProblem({
-    required this.id,
-    required this.owner,
-    required this.property,
-    required this.description,
-    required this.status,
-  });
 }
 
 void main() {
