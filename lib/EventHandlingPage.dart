@@ -77,8 +77,24 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
       }).toList();
     }
 
+    filteredList.sort((a, b) {
+      final aStatus = a['status'];
+      final bStatus = b['status'];
+      final isADone = aStatus == '已处理' || aStatus == '上报到上层级';
+      final isBDone = bStatus == '已处理' || bStatus == '上报到上层级';
+
+      if (isADone && !isBDone) {
+        return 1;
+      } else if (!isADone && isBDone) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
     return filteredList;
   }
+
 
   Widget _buildEventItem(Map<String, dynamic> event) {
     final eventId = event['id'];
@@ -88,7 +104,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
     final house = event['house'];
 
     return ListTile(
-      title: Text('问题描述: $description'),
+      title: Text('问题: $description'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -133,7 +149,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
                 });
               },
               decoration: InputDecoration(
-                labelText: '搜索问题描述',
+                labelText: '搜索',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
