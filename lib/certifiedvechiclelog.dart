@@ -17,7 +17,7 @@ class _CertifiedVehicleLogState extends State<CertifiedVehicleLog> {
     if (queryType == '业主ID') { // 将英文替换为中文
       // 通过业主ID查找车牌信息、车位信息和车辆信息
       queryResult = '查询结果：通过业主ID查询到的车牌信息、车位信息和车辆信息：\n'
-          '业主ID：打火机,车牌号 晋ANQ631,车位号 B-3,车辆：大众朗逸/n'
+          '业主ID：打火机,车牌号 晋ANQ631,车位号 B-3,车辆：大众朗逸\n'
           '业主ID：打火机,车牌号 沪ADQ897,车位号 A-3，车辆：宝马s5';
     } else if (queryType == '车牌号') { // 将英文替换为中文
       // 通过车牌信息查找业主ID、车位信息和车辆信息
