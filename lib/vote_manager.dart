@@ -197,21 +197,10 @@ class _VotingDetailsPageState extends State<VotingDetailsPage> {
             SizedBox(height: 8.0),
             Text('时间: ${widget.item.time}'),
             SizedBox(height: 16.0),
-            Text('投票状态: ${_voted ? '已投票' : '未投票'}'),
+            Text('投票状态: ${_voted ? '已投票' : '投票中'}'),
             SizedBox(height: 8.0),
-            if (_voted) Text('投票结果: ${_voteResult ? '通过' : '未通过'}'),
+            Text('投票结果: ${_voteResult ? '通过' : '未通过'}'),
             SizedBox(height: 16.0),
-            if (!_voted)
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    // 执行投票操作
-                    _voted = true;
-                    _voteResult = true; // 假设投票结果为true，即通过
-                  });
-                },
-                child: Text('投票通过'),
-              ),
           ],
         ),
       ),
