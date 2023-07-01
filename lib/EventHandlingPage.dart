@@ -145,6 +145,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
         ),
         Container(
           height: 1.0,
+          margin: EdgeInsets.symmetric(horizontal: 16.0),  // 在这里添加了 margin
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
