@@ -104,44 +104,63 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
 
     final isPending = status == '未处理';
 
-    return ListTile(
-      title: Text('问题: $description'),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('业主: $owner'),
-          Text('房屋: $house'),
-          Text(
-            '处理状态: ',
-            style: TextStyle(
-              color: isPending ? Colors.red : null,
+    return Column(
+      children: [
+        ListTile(
+          title: Text('问题: $description'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('业主: $owner'),
+              Text('房屋: $house'),
+              Text(
+                '处理状态: ',
+                style: TextStyle(
+                  color: isPending ? Colors.red : null,
+                ),
+              ),
+              Text(
+                status,
+                style: TextStyle(
+                  color: isPending ? Colors.red : null,
+                  fontWeight: isPending ? FontWeight.bold : null,
+                ),
+              ),
+            ],
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () => _updateEventStatus(eventId, '已处理'),
+                child: Text('已处理'),
+              ),
+              SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () => _transferToHigherLevel(eventId),
+                child: Text('上报'),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 1.0,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.transparent,
+                Colors.grey,
+                Colors.transparent,
+              ],
             ),
           ),
-          Text(
-            status,
-            style: TextStyle(
-              color: isPending ? Colors.red : null,
-              fontWeight: isPending ? FontWeight.bold : null,
-            ),
-          ),
-        ],
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-            onPressed: () => _updateEventStatus(eventId, '已处理'),
-            child: Text('已处理'),
-          ),
-          SizedBox(width: 8),
-          ElevatedButton(
-            onPressed: () => _transferToHigherLevel(eventId),
-            child: Text('上报'),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
+
 
 
   @override
