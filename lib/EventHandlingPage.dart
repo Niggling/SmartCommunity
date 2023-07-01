@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MaterialApp(
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      brightness: Brightness.light,
+    ),
+    home: EventHandlingPage(),
+  ));
+}
+
 class EventHandlingPage extends StatefulWidget {
   @override
   _EventHandlingPageState createState() => _EventHandlingPageState();
@@ -104,65 +115,85 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
 
     final isPending = status == '未处理';
 
-    return Column(
-      children: [
-        ListTile(
-          title: Text('问题: $description'),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('业主: $owner'),
-              Text('房屋: $house'),
-              Text(
-                '处理状态: ',
-                style: TextStyle(
-                  color: isPending ? Colors.red : null,
-                ),
-              ),
-              Text(
-                status,
-                style: TextStyle(
-                  color: isPending ? Colors.red : null,
-                  fontWeight: isPending ? FontWeight.bold : null,
-                ),
-              ),
-            ],
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
           ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                onPressed: () => _updateEventStatus(eventId, '已处理'),
-                child: Text('已处理'),
+        ],
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            title: Text(
+              '问题: $description',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
               ),
-              SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () => _transferToHigherLevel(eventId),
-                child: Text('上报'),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 1.0,
-          margin: EdgeInsets.symmetric(horizontal: 16.0),  // 在这里添加了 margin
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Colors.transparent,
-                Colors.grey,
-                Colors.transparent,
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('业主: $owner'),
+                Text('房屋: $house'),
+                Text(
+                  '处理状态: ',
+                  style: TextStyle(
+                    color: isPending ? Colors.red : null,
+                  ),
+                ),
+                Text(
+                  status,
+                  style: TextStyle(
+                    color: isPending ? Colors.red : null,
+                    fontWeight: isPending ? FontWeight.bold : null,
+                  ),
+                ),
+              ],
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _updateEventStatus(eventId, '已处理'),
+                  child: Text('已处理'),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () => _transferToHigherLevel(eventId),
+                  child: Text('上报'),
+                ),
               ],
             ),
           ),
-        ),
-      ],
+          Container(
+            height: 1.0,
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(0, 0, 0, 0),
+                  Colors.grey,
+                  Color.fromRGBO(0, 0, 0, 0),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,39 +202,51 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('事件处理'),
+        backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  searchText = value;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: '搜索',
-                prefixIcon: Icon(Icons.search),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromRGBO(143, 188, 225, 1),
+              Color.fromRGBO(9, 82, 164, 1),
+            ],
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    searchText = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: '搜索',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25.0),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredEvents.length,
-              itemBuilder: (context, index) {
-                return _buildEventItem(filteredEvents[index]);
-              },
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredEvents.length,
+                itemBuilder: (context, index) {
+                  return _buildEventItem(filteredEvents[index]);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: EventHandlingPage(),
-  ));
 }
