@@ -147,124 +147,136 @@ class _AuthenticationState extends State<Authentication> {
     if (uploadedImages.isEmpty) {
       return Container();
     } else {
-      return Column(
-        children: [
-          Text(
-            '已上传的图片:',
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 8),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: uploadedImages.map((imageData) {
-                return Container(
-                  margin: EdgeInsets.all(8),
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: MemoryImage(base64Decode(imageData)),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              }).toList(),
+      return Card(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                '已上传的图片:',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: uploadedImages.map((imageData) {
+                  return Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: MemoryImage(base64Decode(imageData)),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       );
     }
   }
 
   Widget buildIdCardInfo() {
     if (status == '01') {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '姓名:',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 4),
-          TextField(
-            controller: nameController,
-            decoration: InputDecoration(
-              hintText: '请输入姓名',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) {
-              setState(() {
-                name = value;
-              });
-            },
-          ),
-          SizedBox(height: 8),
-          Text(
-            '身份证号码:',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 4),
-          TextField(
-            controller: idCardController,
-            decoration: InputDecoration(
-              hintText: '请输入身份证号码',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) {
-              setState(() {
-                idCard = value;
-              });
-            },
-          ),
-          SizedBox(height: 8),
-          Text(
-            '住址:',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 4),
-          TextField(
-            controller: addressController,
-            decoration: InputDecoration(
-              hintText: '请输入住址',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) {
-              setState(() {
-                address = value;
-              });
-            },
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('信息已保存'),
-                    content: Text('身份信息已更新'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            nameController.text = name;
-                            idCardController.text = idCard;
-                            addressController.text = address;
-                          });
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('确认'),
-                      ),
-                    ],
+      return Card(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '姓名:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  hintText: '请输入姓名',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    name = value;
+                  });
+                },
+              ),
+              SizedBox(height: 8),
+              Text(
+                '身份证号码:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              TextField(
+                controller: idCardController,
+                decoration: InputDecoration(
+                  hintText: '请输入身份证号码',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    idCard = value;
+                  });
+                },
+              ),
+              SizedBox(height: 8),
+              Text(
+                '住址:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              TextField(
+                controller: addressController,
+                decoration: InputDecoration(
+                  hintText: '请输入住址',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    address = value;
+                  });
+                },
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('信息已保存'),
+                        content: Text('身份信息已更新'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                nameController.text = name;
+                                idCardController.text = idCard;
+                                addressController.text = address;
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('确认'),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
-              );
-            },
-            child: Text('保存信息'),
+                child: Text('保存信息'),
+              ),
+            ],
           ),
-        ],
+        ),
       );
     } else {
       return Container();
@@ -276,6 +288,7 @@ class _AuthenticationState extends State<Authentication> {
     return Scaffold(
       appBar: AppBar(
         title: Text('身份验证'),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
