@@ -194,23 +194,23 @@ class _HouseManagementPageState extends State<HouseManagementPage> {
     ),
     SizedBox(height: 16),
     ElevatedButton(
-    onPressed: _bindHouse,
-    child: Text(
-    '绑定房屋',
-    style: TextStyle(fontSize: 18),
-    ),
-    style: ElevatedButton.styleFrom(
-    primary: Colors.white,
-    onPrimary: Colors.black,
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
+             onPressed: _bindHouse,
+              child: Text(
+               '绑定房屋',
+               style: TextStyle(fontSize: 18),
+                ),
+              style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: Colors.black,
+              elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ],
+         ),
+      ),
     );
   }
 }

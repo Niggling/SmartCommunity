@@ -129,68 +129,84 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            title: Text(
-              '问题: $description',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
+      child: Material(
+        elevation: 2.0,
+        borderRadius: BorderRadius.circular(15.0),
+        child: Column(
+          children: [
+            ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              title: Text(
+                '问题: $description',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
               ),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('业主: $owner'),
-                Text('房屋: $house'),
-                Text(
-                  '处理状态: ',
-                  style: TextStyle(
-                    color: isPending ? Colors.red : null,
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('业主: $owner'),
+                  Text('房屋: $house'),
+                  Text(
+                    '处理状态: ',
+                    style: TextStyle(
+                      color: isPending ? Colors.red : null,
+                    ),
                   ),
-                ),
-                Text(
-                  status,
-                  style: TextStyle(
-                    color: isPending ? Colors.red : null,
-                    fontWeight: isPending ? FontWeight.bold : null,
+                  Text(
+                    status,
+                    style: TextStyle(
+                      color: isPending ? Colors.red : null,
+                      fontWeight: isPending ? FontWeight.bold : null,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () => _updateEventStatus(eventId, '已处理'),
-                  child: Text('已处理'),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () => _transferToHigherLevel(eventId),
-                  child: Text('上报'),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 1.0,
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromRGBO(0, 0, 0, 0),
-                  Colors.grey,
-                  Color.fromRGBO(0, 0, 0, 0),
+                ],
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _updateEventStatus(eventId, '已处理'),
+                    child: Text('已处理'),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () => _transferToHigherLevel(eventId),
+                    child: Text('上报'),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
+            Container(
+              height: 1.0,
+              margin: EdgeInsets.symmetric(horizontal: 16.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Color.fromRGBO(0, 0, 0, 0),
+                    Colors.grey,
+                    Color.fromRGBO(0, 0, 0, 0),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -205,16 +221,7 @@ class _EventHandlingPageState extends State<EventHandlingPage> {
         backgroundColor: Colors.blue,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color.fromRGBO(143, 188, 225, 1),
-              Color.fromRGBO(9, 82, 164, 1),
-            ],
-          ),
-        ),
+        color: Colors.white,
         child: Column(
           children: [
             Padding(
