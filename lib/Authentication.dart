@@ -161,6 +161,7 @@ class _AuthenticationState extends State<Authentication> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: uploadedImages.map((imageData) {
                   return Padding(
                     padding: EdgeInsets.all(8),
@@ -191,7 +192,8 @@ class _AuthenticationState extends State<Authentication> {
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 '姓名:',
@@ -293,7 +295,8 @@ class _AuthenticationState extends State<Authentication> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             buildUploadedImages(),
             SizedBox(height: 16),
