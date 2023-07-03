@@ -111,7 +111,7 @@ class PersonalCenterPage extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (BuildContext context) => LoginApp()),);
+                            MaterialPageRoute(builder: (BuildContext context) => MyApp()),);
                       },
                       child: Text('确定'),
                     ),

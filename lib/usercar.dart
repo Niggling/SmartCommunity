@@ -230,6 +230,7 @@ class _VehicleManagementPageState extends State<VehicleManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100], // 设置背景色为灰色
       appBar: AppBar(
         title: Text('车辆管理'),
       ),
@@ -237,34 +238,40 @@ class _VehicleManagementPageState extends State<VehicleManagementPage> {
         itemCount: vehicles.length,
         itemBuilder: (BuildContext context, int index) {
           Vehicle vehicle = vehicles[index];
-          return ListTile(
-            title: Text(vehicle.licensePlate),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('绑定房屋：'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: vehicle.selectedHouses.map((house) {
-                    return Text(house.houseNumber);
-                  }).toList(),
-                ),
-                SizedBox(height: 4),
-                Text('绑定车位：'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: vehicle.selectedParkingSpaces.map((space) {
-                    return Text('车位${space.spaceNumber}');
-                  }).toList(),
-                ),
-              ],
-            ),
-
-            trailing: IconButton(
-              icon: Icon(Icons.link),
-              onPressed: () {
-                bindVehicleToHouses(vehicle);
-              },
+          return Card(
+            elevation: 2.0,
+            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            child: ListTile(
+              title: Text(vehicle.licensePlate),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 8),
+                  Text('绑定房屋:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 4),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: vehicle.selectedHouses.map((house) {
+                      return Text('房屋${house.houseNumber}');
+                    }).toList(),
+                  ),
+                  SizedBox(height: 8),
+                  Text('绑定车位:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 4),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: vehicle.selectedParkingSpaces.map((space) {
+                      return Text('车位${space.spaceNumber}');
+                    }).toList(),
+                  ),
+                ],
+              ),
+              trailing: IconButton(
+                icon: Icon(Icons.link),
+                onPressed: () {
+                  bindVehicleToHouses(vehicle);
+                },
+              ),
             ),
           );
         },
