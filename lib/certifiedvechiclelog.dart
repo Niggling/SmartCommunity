@@ -38,7 +38,8 @@ class _CertifiedVehicleLogState extends State<CertifiedVehicleLog> {
       appBar: AppBar(
         title: Text('查询示例'),
       ),
-      body: Align(
+      body: SingleChildScrollView(
+      child:Align(
         alignment: Alignment.topCenter,
         child: Container(
           margin: EdgeInsets.all(20.0),
@@ -88,7 +89,7 @@ class _CertifiedVehicleLogState extends State<CertifiedVehicleLog> {
               ),
             ],
           ),
-        ),
+        )),
       ),
     );
   }
