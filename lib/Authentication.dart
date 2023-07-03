@@ -70,8 +70,7 @@ class _AuthenticationState extends State<Authentication> {
         message = data['msg'];
         if (status == '01') {
           step = 3;
-        }
-        else {
+        } else {
           setState(() {
             status = 'Error';
             message = '身份验证请求出错';
@@ -159,7 +158,15 @@ class _AuthenticationState extends State<Authentication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('身份验证'),
+        title: Text(
+          '身份验证',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
+        ),
+
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -169,38 +176,25 @@ class _AuthenticationState extends State<Authentication> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '上传身份证图片->识别身份证->验证身份证',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              '上传身份证图片 -> 识别身份证 -> 验证身份证',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
             ),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    child: Text("1"),
-                    backgroundColor: step > 0 ? Colors.deepPurple : Colors.grey,
-                  ),
-                ),
-                SizedBox(width: 20), // 添加间距
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    child: Text("2"),
-                    backgroundColor: step > 1 ? Colors.deepPurple : Colors.grey,
-                  ),
-                ),
-                SizedBox(width: 20), // 添加间距
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    child: Text("3"),
-                    backgroundColor: step > 2 ? Colors.deepPurple : Colors.grey,
-                  ),
-                ),
+                _buildCircleAvatar('1', step > 0),
+                SizedBox(width: 20),
+                _buildCircleAvatar('2', step > 1),
+                SizedBox(width: 20),
+                _buildCircleAvatar('3', step > 2),
               ],
             ),
-
+            SizedBox(height: 20),
             Container(
               width: 300,
               height: 200,
@@ -208,11 +202,14 @@ class _AuthenticationState extends State<Authentication> {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: uploadedImages.isNotEmpty ?
-              Image.memory(base64Decode(uploadedImages.last), fit: BoxFit.cover) :
-              Center(child: Text('请上传身份证图片')),
+              child: uploadedImages.isNotEmpty
+                  ? Image.memory(
+                base64Decode(uploadedImages.last),
+                fit: BoxFit.cover,
+              )
+                  : Center(child: Text('请上传身份证图片')),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -227,7 +224,7 @@ class _AuthenticationState extends State<Authentication> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             TextField(
               controller: nameController,
               decoration: InputDecoration(
@@ -251,20 +248,46 @@ class _AuthenticationState extends State<Authentication> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: verifyIdCard,
               child: Text('验证身份证'),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             Text(
               '验证结果:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
             ),
             SizedBox(height: 8),
-            Text(status == '01' ? '实名认证成功' : status == 'Error' ? '实名认证失败' : ''),
+            Text(
+              status == '01'
+                  ? '实名认证成功'
+                  : status == 'Error'
+                  ? '实名认证失败'
+                  : '',
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCircleAvatar(String label, bool isActive) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: isActive ? Colors.deepPurple : Colors.grey,
       ),
     );
   }
