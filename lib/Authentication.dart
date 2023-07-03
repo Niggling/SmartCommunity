@@ -178,7 +178,7 @@ class _AuthenticationState extends State<Authentication> {
             Text(
               '上传身份证图片 -> 识别身份证 -> 验证身份证',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.2,
               ),
