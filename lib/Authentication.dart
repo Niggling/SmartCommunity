@@ -174,14 +174,33 @@ class _AuthenticationState extends State<Authentication> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(3, (index) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  child: Text("${index+1}"),
-                  backgroundColor: step > index ? Colors.deepPurple : Colors.grey,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    child: Text("1"),
+                    backgroundColor: step > 0 ? Colors.deepPurple : Colors.grey,
+                  ),
                 ),
-              )),
+                SizedBox(width: 20), // 添加间距
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    child: Text("2"),
+                    backgroundColor: step > 1 ? Colors.deepPurple : Colors.grey,
+                  ),
+                ),
+                SizedBox(width: 20), // 添加间距
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    child: Text("3"),
+                    backgroundColor: step > 2 ? Colors.deepPurple : Colors.grey,
+                  ),
+                ),
+              ],
             ),
+
             Container(
               width: 300,
               height: 200,
