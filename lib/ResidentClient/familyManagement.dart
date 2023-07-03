@@ -21,13 +21,18 @@ class _FamilyState extends State<FamilyPage>{
         body: ListView.builder(
           itemCount: family.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(family[index].name),
-              subtitle: Text('年龄：${family[index].age}岁'),
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                _showPersonDetails(family[index]);
-              },
+            return Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(family[index].name),
+                  subtitle: Text('年龄：${family[index].age}岁'),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    _showPersonDetails(family[index]);
+                  },
+                ),
+                Divider(), // 添加分割线
+              ],
             );
           },
         ),

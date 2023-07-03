@@ -60,166 +60,168 @@ class HomePage extends StatelessWidget{
           color: Color(0xFFF2F2F2),
           child:Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                SizedBox(height: 16,),
-                Container(
-                  child: Image.asset(
-                  'assets/images/second_page.jpg',
-                  width:double.infinity,
-                  height:200,
-                  fit: BoxFit.cover,
-                ),
-                ),
-                SizedBox(height: 30),
-                SizedBox(
-                  height: 250,
-                  child:Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16), // 圆角半径
+            child: SingleChildScrollView(
+              child:Column(
+                children: [
+                  SizedBox(height: 16,),
+                  Container(
+                    child: Image.asset(
+                      'assets/images/second_page.jpg',
+                      width:double.infinity,
+                      height:200,
+                      fit: BoxFit.cover,
                     ),
-                    child: GridView(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,//横向数量
-                        mainAxisSpacing: 2,//行间距
-                        crossAxisSpacing: 4,//水平间距
-                        childAspectRatio: 1.0,//宽高比
+                  ),
+                  SizedBox(height: 30),
+                  SizedBox(
+                    height: 250,
+                    child:Container(
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16), // 圆角半径
                       ),
-                      children: [
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.account_box,
-                              color: Colors.blue,
-                              size: 50.0,
-                            ),
-                            SizedBox(height: 8.0,),
-                            ElevatedButton(
-                              onPressed: (){
-                                Navigator.pushNamed(context, "Authentication");
-                              },
-                              child: Text("实名认证"),
-                              style:ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black,
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                              ),
-                            ),
-                          ],
+                      child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,//横向数量
+                          mainAxisSpacing: 2,//行间距
+                          crossAxisSpacing: 4,//水平间距
+                          childAspectRatio: 1.0,//宽高比
                         ),
-                        Column(
-                            children:[
+                        children: [
+                          Column(
+                            children: [
                               Icon(
-                                Icons.business,
+                                Icons.account_box,
                                 color: Colors.blue,
                                 size: 50.0,
                               ),
                               SizedBox(height: 8.0,),
                               ElevatedButton(
                                 onPressed: (){
-                                  Navigator.pushNamed(context, "HouseManagement");
+                                  Navigator.pushNamed(context, "Authentication");
                                 },
-                                child: Text("房屋管理"),
+                                child: Text("实名认证"),
                                 style:ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
                                   backgroundColor: Colors.transparent,
                                   shadowColor: Colors.transparent,
                                 ),
                               ),
-                            ]
-                        ),
-                        Column(
-                            children:[
-                              Icon(
-                                Icons.group,
-                                color: Colors.blue,
-                                size: 50.0,
-                              ),
-                              SizedBox(height: 8.0,),
-                              ElevatedButton(
-                                onPressed: (){
-                                  Navigator.pushNamed(context, "familyManagement");
-                                },
-                                child: Text("家人管理"),
-                                style:ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
+                            ],
+                          ),
+                          Column(
+                              children:[
+                                Icon(
+                                  Icons.business,
+                                  color: Colors.blue,
+                                  size: 50.0,
                                 ),
-                              ),
-                            ]
-                        ),
-                        Column(
-                            children:[
-                              Icon(
-                                Icons.drive_eta,
-                                color: Colors.blue,
-                                size: 50.0,
-                              ),
-                              SizedBox(height: 8.0,),
-                              ElevatedButton(
-                                onPressed: (){
-                                  Navigator.pushNamed(context, "usercar");
-                                },
-                                child: Text("车辆管理"),
-                                style:ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
+                                SizedBox(height: 8.0,),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, "HouseManagement");
+                                  },
+                                  child: Text("房屋管理"),
+                                  style:ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
                                 ),
-                              ),
-                            ]
-                        ),
-                        Column(
-                            children:[
-                              Icon(
-                                Icons.announcement,
-                                color: Colors.blue,
-                                size: 50.0,
-                              ),
-                              SizedBox(height: 8.0,),
-                              ElevatedButton(
-                                onPressed: (){
-                                  Navigator.pushNamed(context, "ProblemReportPage");
-                                },
-                                child: Text("问题上报"),
-                                style:ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
+                              ]
+                          ),
+                          Column(
+                              children:[
+                                Icon(
+                                  Icons.group,
+                                  color: Colors.blue,
+                                  size: 50.0,
                                 ),
-                              ),
-                            ]
-                        ),
-                        Column(
-                            children:[
-                              Icon(
-                                Icons.insert_chart,
-                                color: Colors.blue,
-                                size: 50.0,
-                              ),
-                              SizedBox(height: 8.0,),
-                              ElevatedButton(
-                                onPressed: (){
-                                  Navigator.pushNamed(context, "vote_client");
-                                },
-                                child: Text("支出投票"),
-                                style:ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.black,
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
+                                SizedBox(height: 8.0,),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, "familyManagement");
+                                  },
+                                  child: Text("家人管理"),
+                                  style:ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
                                 ),
-                              ),
-                            ]
-                        ),
-                      ],
-                    ),
-                  ) ,
-                )
-              ],
-            ) ,
+                              ]
+                          ),
+                          Column(
+                              children:[
+                                Icon(
+                                  Icons.drive_eta,
+                                  color: Colors.blue,
+                                  size: 50.0,
+                                ),
+                                SizedBox(height: 8.0,),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, "usercar");
+                                  },
+                                  child: Text("车辆管理"),
+                                  style:ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
+                                ),
+                              ]
+                          ),
+                          Column(
+                              children:[
+                                Icon(
+                                  Icons.announcement,
+                                  color: Colors.blue,
+                                  size: 50.0,
+                                ),
+                                SizedBox(height: 8.0,),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, "ProblemReportPage");
+                                  },
+                                  child: Text("问题上报"),
+                                  style:ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
+                                ),
+                              ]
+                          ),
+                          Column(
+                              children:[
+                                Icon(
+                                  Icons.insert_chart,
+                                  color: Colors.blue,
+                                  size: 50.0,
+                                ),
+                                SizedBox(height: 8.0,),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, "vote_client");
+                                  },
+                                  child: Text("支出投票"),
+                                  style:ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.black,
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ],
+                      ),
+                    ) ,
+                  )
+                ],
+              ) ,
+            ),
           )
 
       ),
