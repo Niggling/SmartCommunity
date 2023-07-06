@@ -83,10 +83,14 @@ class _VehicleApprovalPageState extends State<VehicleApprovalPage> with SingleTi
                   children: [
                     IconButton(
                       icon: Icon(Icons.check),
+                      //帮我把这个check的图标换成绿色的
+                      color: Colors.green,
                       onPressed: () => approveVehicle(approval),
                     ),
                     IconButton(
                       icon: Icon(Icons.close),
+                      //帮我把这个close的图标换成红色的
+                      color: Colors.red,
                       onPressed: () => rejectVehicle(approval),
                     ),
                   ],
@@ -99,10 +103,14 @@ class _VehicleApprovalPageState extends State<VehicleApprovalPage> with SingleTi
               ...approvedApprovals.map((approval) => ListTile(
                 title: Text(approval),
                 trailing: Icon(Icons.check),
+                //帮我把这个check的图标换成绿色的
+                iconColor: Colors.green,
               )),
               ...rejectedApprovals.map((approval) => ListTile(
                 title: Text(approval),
                 trailing: Icon(Icons.close),
+                //帮我把这个close的图标换成红色的
+                iconColor: Colors.red,
               )),
             ],
           ),
