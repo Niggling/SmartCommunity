@@ -155,9 +155,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ElevatedButton(
                 onPressed: () {
                   loadDataDio();
-                  if (datakey == 'xushang') {
+                  if (datakey == 'yuyuyang') {
                     manager_main();
-                  } else if (datakey == 'yuyuyang') {
+                  } else if (datakey == 'xushang') {
                     resident_main();
                   }
                 },
