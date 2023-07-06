@@ -7,6 +7,7 @@ import 'package:workspace/HouseManagement.dart';
 import 'package:workspace/usercar.dart';
 import 'package:workspace/ProblemReportPage.dart';
 import 'package:workspace/vote_client.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class RHomePage extends StatefulWidget {
   @override
@@ -63,13 +64,27 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    child: Image.asset(
-                      'assets/images/second_page.jpg',
-                      width: double.infinity,
+                  CarouselSlider(
+                    options: CarouselOptions(
                       height: 200,
-                      fit: BoxFit.cover,
+                      autoPlay: true, // 自动播放
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: true,
                     ),
+                    items: [
+                      Image.asset(
+                        'assets/images/first_page.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'assets/images/second_page.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'assets/images/news_icon.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 30),
                   SizedBox(
@@ -85,7 +100,7 @@ class HomePage extends StatelessWidget {
                           crossAxisCount: 3, //横向数量
                           mainAxisSpacing: 2, //行间距
                           crossAxisSpacing: 4, //水平间距
-                          childAspectRatio: 1.0, //宽高比
+                          childAspectRatio: 0.8, //宽高比
                         ),
                         children: [
                           Column(
@@ -222,7 +237,8 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 16)
                 ],
               ),
             ),

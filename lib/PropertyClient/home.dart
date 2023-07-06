@@ -7,6 +7,7 @@ import '/tenementcar.dart';
 import '/EventHandlingPage.dart';
 import '/vote_manager.dart';
 import '/perosnalcenter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class PHomePage extends StatefulWidget {
   @override
@@ -48,6 +49,7 @@ class _HomePageState extends State<PHomePage> {
   }
 }
 
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -61,17 +63,31 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 16,
                 ),
-                Container(
-                  child: Image.asset(
-                    'assets/images/first_page.png',
-                    width: double.infinity,
+                CarouselSlider(
+                  options: CarouselOptions(
                     height: 200,
-                    fit: BoxFit.cover,
+                    autoPlay: true, // 自动播放
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: true,
                   ),
+                  items: [
+                    Image.asset(
+                      'assets/images/first_page.png',
+                      fit: BoxFit.cover,
+                    ),
+                    Image.asset(
+                      'assets/images/second_page.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                    Image.asset(
+                      'assets/images/news_icon.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 250,
+                  height: 300,
                   child: Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -79,11 +95,12 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16), // 圆角半径
                     ),
                     child: GridView(
+                      shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3, //横向数量
                         mainAxisSpacing: 2, //行间距
                         crossAxisSpacing: 4, //水平间距
-                        childAspectRatio: 1.0, //宽高比
+                        childAspectRatio: 0.8, //宽高比
                       ),
                       children: [
                         Column(
@@ -219,7 +236,8 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                SizedBox(height: 16)
               ],
             ),
           ),

@@ -39,6 +39,7 @@ dependencies:
   mysql1: ^0.20.0
   http: ^0.13.3
   dio: any
+  carousel_slider: ^4.2.1
 
 
 
