@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                       Image.asset(
-                        'assets/images/news_icon.jpg',
+                        'assets/images/third_page.jpg',
                         fit: BoxFit.cover,
                       ),
                     ],
@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
                           Column(children: [
                             Icon(
                               Icons.business,
-                              color: Colors.blue,
+                              color: Colors.red,
                               size: 50.0,
                             ),
                             SizedBox(
@@ -151,7 +151,7 @@ class HomePage extends StatelessWidget {
                           Column(children: [
                             Icon(
                               Icons.group,
-                              color: Colors.blue,
+                              color: Colors.orange,
                               size: 50.0,
                             ),
                             SizedBox(
@@ -173,7 +173,7 @@ class HomePage extends StatelessWidget {
                           Column(children: [
                             Icon(
                               Icons.drive_eta,
-                              color: Colors.blue,
+                              color: Colors.green,
                               size: 50.0,
                             ),
                             SizedBox(
@@ -194,7 +194,7 @@ class HomePage extends StatelessWidget {
                           Column(children: [
                             Icon(
                               Icons.announcement,
-                              color: Colors.blue,
+                              color: Colors.yellow,
                               size: 50.0,
                             ),
                             SizedBox(
@@ -216,7 +216,7 @@ class HomePage extends StatelessWidget {
                           Column(children: [
                             Icon(
                               Icons.insert_chart,
-                              color: Colors.blue,
+                              color: Colors.purple,
                               size: 50.0,
                             ),
                             SizedBox(

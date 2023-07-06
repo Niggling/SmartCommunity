@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/Authentication.dart';
 import 'login.dart';
 
-List<String> personal = ["打火机","657803436@qq.com"];
+List<String> personal = ["徐尚","657803436@qq.com"];
 class PersonalCenterPage extends StatelessWidget {
   @override
 
@@ -31,11 +31,11 @@ class PersonalCenterPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('性别：女'),
+                      Text('性别：男'),
                       Text('年龄：25'),
                       Text('名下的房屋：22栋201'),
-                      Text('名下的车辆：大众朗逸'),
-                      Text('家人：母亲：大苏打，父亲：打手机'),
+                      Text('名下的车辆：大众朗逸,宝马s5'),
+                      Text('家人：母亲：大苏打，父亲：徐手机'),
                     ],
                   ),
                   actions: [

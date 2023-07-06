@@ -7,16 +7,22 @@ class VehicleApprovalPage extends StatefulWidget {
 
 class _VehicleApprovalPageState extends State<VehicleApprovalPage> with SingleTickerProviderStateMixin {
   List<String> pendingApprovals = [
-    '审核单1',
-    '审核单2',
-    '审核单3',
+    '审核单号100002023070601',
+    '审核单号100002023070602',
+    '审核单号100002023070603',
+    '审核单号100002023070605',
+    '审核单号100002023070607',
+    '审核单号100002023070608',
+    '审核单号100002023070609',
+    '审核单号100002023070610',
+
   ];
   List<String> approvedApprovals = [
-    '审核单4',
-    '审核单5',
+    '审核单号100002023070604',
+    '审核单号100002023070606',
   ];
   List<String> rejectedApprovals = [
-    '审核单6',
+    '审核单号100002023070611',
   ];
 
   late TabController _tabController;
@@ -76,7 +82,7 @@ class _VehicleApprovalPageState extends State<VehicleApprovalPage> with SingleTi
                   Text('$approval 的详细信息'),
                   Text('业主ID为 打火机'),
                   Text('车牌号为 晋ANQ631'),
-                  Text('车位号为 B-3'),
+                  Text('申请车位号为 B-3'),
                 ],
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

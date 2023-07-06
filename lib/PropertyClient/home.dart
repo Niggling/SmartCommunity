@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Image.asset(
-                      'assets/images/news_icon.jpg',
+                      'assets/images/third_page.jpg',
                       fit: BoxFit.cover,
                     ),
                   ],
@@ -129,7 +129,7 @@ class HomePage extends StatelessWidget {
                         Column(children: [
                           Icon(
                             Icons.exposure,
-                            color: Colors.blue,
+                            color: Colors.red,
                             size: 50.0,
                           ),
                           SizedBox(
@@ -151,7 +151,7 @@ class HomePage extends StatelessWidget {
                         Column(children: [
                           Icon(
                             Icons.account_box,
-                            color: Colors.blue,
+                            color: Colors.orange,
                             size: 50.0,
                           ),
                           SizedBox(
@@ -172,7 +172,7 @@ class HomePage extends StatelessWidget {
                         Column(children: [
                           Icon(
                             Icons.airport_shuttle,
-                            color: Colors.blue,
+                            color: Colors.green,
                             size: 50.0,
                           ),
                           SizedBox(
@@ -193,7 +193,7 @@ class HomePage extends StatelessWidget {
                         Column(children: [
                           Icon(
                             Icons.assignment_late,
-                            color: Colors.blue,
+                            color: Colors.yellow,
                             size: 50.0,
                           ),
                           SizedBox(
@@ -214,7 +214,7 @@ class HomePage extends StatelessWidget {
                         Column(children: [
                           Icon(
                             Icons.folder_special,
-                            color: Colors.blue,
+                            color: Colors.purple,
                             size: 50.0,
                           ),
                           SizedBox(
