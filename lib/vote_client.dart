@@ -92,10 +92,10 @@ class _VoteItemWidgetState extends State<VoteItemWidget> {
                   onChanged: hasVoted
                       ? null
                       : (value) {
-                          setState(() {
-                            selectedOption = value!;
-                          });
-                        },
+                    setState(() {
+                      selectedOption = value!;
+                    });
+                  },
                 ),
               );
             },
