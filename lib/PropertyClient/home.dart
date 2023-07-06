@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                 ),
                 CarouselSlider(
                   options: CarouselOptions(
-                    height: 200,
+                    height: 250,
                     autoPlay: true, // 自动播放
                     enlargeCenterPage: true,
                     enableInfiniteScroll: true,
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 300,
+                  height: 350,
                   child: Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16), // 圆角半径
                     ),
                     child: GridView(
-                      shrinkWrap: true,
+                      //shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3, //横向数量
                         mainAxisSpacing: 2, //行间距
@@ -237,7 +237,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 16)
+                SizedBox(height: 16),
               ],
             ),
           ),

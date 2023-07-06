@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 30),
                   SizedBox(
-                    height: 250,
+                    height: 350,
                     child: Container(
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
