@@ -128,25 +128,28 @@ class _VotingPageState extends State<VotingPage> {
         itemCount: _votingItems.length,
         itemBuilder: (BuildContext context, int index) {
           VotingItem item = _votingItems[index];
-          return ListTile(
-            title: Text(item.project),
-            subtitle: Text(item.reason),
-            trailing: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text('费用: ${item.cost}'),
-                Text('时间: ${item.time}'),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VotingDetailsPage(item: item),
+          return Card(
+              elevation: 2.0,
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: ListTile(
+                title: Text(item.project),
+                subtitle: Text(item.reason),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('费用: ${item.cost}'),
+                    Text('时间: ${item.time}'),
+                  ],
                 ),
-              );
-            },
-          );
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VotingDetailsPage(item: item),
+                    ),
+                  );
+                },
+              ));
         },
       ),
       floatingActionButton: FloatingActionButton(
