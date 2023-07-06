@@ -25,6 +25,12 @@ class _VotingPageState extends State<VotingPage> {
       cost: '2000元',
       time: '2023-07-05',
     ),
+    VotingItem(
+      project: '安保系统',
+      reason: '安保系统费用',
+      cost: '8000元',
+      time: '2023-07-06',
+    ),
     // 添加更多投票项目...
   ];
 
