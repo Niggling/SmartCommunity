@@ -128,28 +128,24 @@ class _VotingPageState extends State<VotingPage> {
         itemCount: _votingItems.length,
         itemBuilder: (BuildContext context, int index) {
           VotingItem item = _votingItems[index];
-          return Card(
-            elevation: 2.0,
-            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: ListTile(
-              title: Text(item.project),
-              subtitle: Text(item.reason),
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('费用: ${item.cost}'),
-                  Text('时间: ${item.time}'),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VotingDetailsPage(item: item),
-                  ),
-                );
-              },
+          return ListTile(
+            title: Text(item.project),
+            subtitle: Text(item.reason),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text('费用: ${item.cost}'),
+                Text('时间: ${item.time}'),
+              ],
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VotingDetailsPage(item: item),
+                ),
+              );
+            },
           );
         },
       ),
@@ -197,24 +193,23 @@ class _VotingDetailsPageState extends State<VotingDetailsPage> {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('项目: ${widget.item.project}'),
-                SizedBox(height: 8.0),
-                Text('支出缘由: ${widget.item.reason}'),
-                SizedBox(height: 8.0),
-                Text('费用: ${widget.item.cost}'),
-                SizedBox(height: 8.0),
-                Text('时间: ${widget.item.time}'),
-                SizedBox(height: 16.0),
-                Text('投票状态: ${_voted ? '已投票' : '投票中'}'),
-                SizedBox(height: 8.0),
-                Text('投票结果: ${_voteResult ? '通过' : '未通过'}'),
-                SizedBox(height: 16.0),
-              ],
-            ),
-          ),
-
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('项目: ${widget.item.project}'),
+            SizedBox(height: 8.0),
+            Text('支出缘由: ${widget.item.reason}'),
+            SizedBox(height: 8.0),
+            Text('费用: ${widget.item.cost}'),
+            SizedBox(height: 8.0),
+            Text('时间: ${widget.item.time}'),
+            SizedBox(height: 16.0),
+            Text('投票状态: ${_voted ? '已投票' : '投票中'}'),
+            SizedBox(height: 8.0),
+            Text('投票结果: ${_voteResult ? '通过' : '未通过'}'),
+            SizedBox(height: 16.0),
+          ],
+        ),
+      ),
     );
   }
 }
