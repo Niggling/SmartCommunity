@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.springboot.mapper.HouseMapper">
+
+    <cache eviction="LRU" flushInterval="1200000" size="512" readOnly="false"></cache>
+
+    <select id="getMyHousesWithCars" resultMap="houseMap" useCache="false" parameterType="java.lang.String">
+        select * from cars,houses,carhouse where houses.userId = #{userId} and houses.houseId = carhouse.houseId and cars.carId = carhouse.carId
+    </select>
+    
+    <resultMap id="houseMap" type="com.community.springboot.entity.House">
+        <id property="houseId" column="houseId"></id>
+        <result property="userId" column="userId"></result>
+        <result property="estate" column="estate"></result>
+        <result property="block" column="block"></result>
+        <result property="location" column="location"></result>
+        <result property="relationship" column="relationship"></result>
+        <result property="bindDate" column="bindDate"></result>
+        <result property="isBinded" column="isBinded"></result>
+        <result property="isDeleted" column="isDeleted"></result>
+        <!--多对多映射关系-->
+        <collection property="cars" ofType="com.community.springboot.entity.Car">
+            <id property="carId" column="carId"></id>
+            <result property="carName" column="carName"></result>
+            <result property="userId" column="userId"></result>
+            <result property="purchaseDate" column="purchaseDate"></result>
+            <result property="location" column="location"></result>
+            <result property="isDeleted" column="isDeleted"></result>
+            <result property="description" column="description"></result>
+        </collection>
+    </resultMap>
+
+</mapper>

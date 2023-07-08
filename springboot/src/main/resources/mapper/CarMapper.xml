@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.springboot.mapper.CarMapper">
+
+    <cache eviction="LRU" flushInterval="1200000" size="512" readOnly="false"></cache>
+
+    <select id="getMyCarsAndHouses" useCache="true" resultMap="carMap">
+        select * from cars,houses,carhouse where cars.userId = #{userId} and cars.carId = carhouse.carId and houses.houseId = carhouse.houseId
+    </select>
+    
+    <insert statementType="PREPARED" id="bindCarToHouse" parameterType="com.community.springboot.entity.dto.CarBindDTO">
+        insert into carhouse(carId,houseId) values #{carId},#{houseId}
+    </insert>
+
+    <delete id="unbindCarAndHouse" parameterType="com.community.springboot.entity.dto.CarBindDTO">
+        delete from carhouse where carId = #{carId} and houseId = #{houseId}
+    </delete>
+
+    <resultMap id="carMap" type="com.community.springboot.entity.Car">
+        <id property="carId" column="carId"></id>
+        <result property="carName" column="carName"></result>
+        <result property="userId" column="userId"></result>
+        <result property="purchaseDate" column="purchaseDate"></result>
+        <result property="location" column="location"></result>
+        <result property="isDeleted" column="isDeleted"></result>
+        <result property="description" column="description"></result>
+        <!--多对多映射关系-->
+        <collection property="houses" ofType="com.community.springboot.entity.House">
+            <id property="houseId" column="houseId"></id>
+            <result property="userId" column="userId"></result>
+            <result property="estate" column="estate"></result>
+            <result property="block" column="block"></result>
+            <result property="location" column="location"></result>
+            <result property="relationship" column="relationship"></result>
+            <result property="bindDate" column="bindDate"></result>
+            <result property="isBinded" column="isBinded"></result>
+            <result property="isDeleted" column="isDeleted"></result>
+        </collection>
+    </resultMap>
+
+</mapper>

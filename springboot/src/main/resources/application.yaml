@@ -1,0 +1,59 @@
+sa-token:
+  activity-timeout: 86400
+  is-concurrent: false
+  is-log: false
+  is-share: true
+  timeout: 86400
+  token-name: communityCookie
+  token-style: random-64
+server:
+  port: 8142
+spring:
+  application:
+    name: CommunityBackEnd
+  banner:
+    charset: UTF-8
+  data:
+    mongodb:
+      authentication-database: admin
+      database: FileService
+      host: 127.0.0.1
+      password: mongo2023java
+      port: 27017
+      username: fileUser
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-timeout: 3000
+      idle-timeout: 30000
+      max-lifetime: 180000
+      maximum-pool-size: 250
+      minimum-idle: 50
+      pool-name: HikariCP
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/community?useSSL=true&rewriteBatchedStatements=true
+    username: root
+  redis:
+    database: 5
+    host: 127.0.0.1
+    jedis:
+      pool:
+        max-active: -1
+        max-idle: 100
+        max-wait: 2000
+        min-idle: 25
+    port: 6379
+    timeout: 60000
+path:
+  urlList:
+  - /login/auth
+  - /register/sure
+  - /captcha/getImage
+  - /verify/identity
+verify:
+  host: https://idcardcheck2.hzylgs.com
+  path: /api-mall/api/id_card_v2/check
+  method: POST
+  appcode: 661984121648489b8f5208eecd31969f
