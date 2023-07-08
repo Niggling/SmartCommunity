@@ -80,7 +80,7 @@ class _VehicleApprovalPageState extends State<VehicleApprovalPage> with SingleTi
                 children: [
                   // 这里可以添加审核单的具体信息
                   Text('$approval 的详细信息'),
-                  Text('业主ID为 打火机'),
+                  Text('业主ID为 徐尚'),
                   Text('车牌号为 晋ANQ631'),
                   Text('申请车位号为 B-3'),
                 ],
